@@ -22,7 +22,7 @@ export const httpApi: ApiPort = {
   getMonth: (month) => request('GET', `/api/months/${e(month)}`),
   createTask: (req) => request('POST', '/api/tasks', req),
   updateTask: (id, req) => request('PATCH', `/api/tasks/${id}`, req),
-  deleteTask: (id) => request('DELETE', `/api/tasks/${id}`),
+  deleteTask: (id) => request('DELETE', `/api/tasks/${id}`, undefined, { keepalive: true }),
   completeTask: (id) => request('POST', `/api/tasks/${id}/complete`),
   uncompleteTask: (id) => request('POST', `/api/tasks/${id}/uncomplete`),
   moveTask: (id, req) => request('POST', `/api/tasks/${id}/move`, req),
@@ -36,15 +36,19 @@ export const httpApi: ApiPort = {
   getShareLinks: () => request('GET', '/api/share-links'),
   createShareLink: (req) => request('POST', '/api/share-links', req),
   updateShareLink: (id, req) => request('PATCH', `/api/share-links/${id}`, req),
-  closeShareLink: (id) => request('POST', `/api/share-links/${id}/close`),
-  deleteShareLink: (id) => request('DELETE', `/api/share-links/${id}`),
-  deleteShareLinkWithComments: (id) => request('DELETE', `/api/share-links/${id}/with-comments`),
+  closeShareLink: (id) =>
+    request('POST', `/api/share-links/${id}/close`, undefined, { keepalive: true }),
+  deleteShareLink: (id) =>
+    request('DELETE', `/api/share-links/${id}`, undefined, { keepalive: true }),
+  deleteShareLinkWithComments: (id) =>
+    request('DELETE', `/api/share-links/${id}/with-comments`, undefined, { keepalive: true }),
   addShareLinkRoutine: (id, routineId) =>
     request('PUT', `/api/share-links/${id}/routines/${routineId}`),
   removeShareLinkRoutine: (id, routineId) =>
     request('DELETE', `/api/share-links/${id}/routines/${routineId}`),
   getShareLinkComments: (id) => request('GET', `/api/share-links/${id}/comments`),
-  deleteShareLinkComment: (commentId) => request('DELETE', `/api/share-link-comments/${commentId}`),
+  deleteShareLinkComment: (commentId) =>
+    request('DELETE', `/api/share-link-comments/${commentId}`, undefined, { keepalive: true }),
   getPublicShare: (token) => request('GET', `/api/public/share/${e(token)}`),
   createPublicComment: (token, req) =>
     request('POST', `/api/public/share/${e(token)}/comments`, req),

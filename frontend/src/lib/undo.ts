@@ -13,19 +13,16 @@ export function scheduleUndoable(job: Undoable, ms = 6000): UndoHandle {
   let settled = false
   const cancelTimer = () => {
     clearTimeout(timer)
-    pending.delete(discard)
+    pending.delete(run)
   }
-  const timer = setTimeout(() => {
+  const run = () => {
     if (settled) return
     settled = true
-    pending.delete(discard)
+    cancelTimer()
     job.run()
-  }, ms)
-  const discard = () => {
-    settled = true
-    clearTimeout(timer)
   }
-  pending.add(discard)
+  const timer = setTimeout(run, ms)
+  pending.add(run)
   return {
     undo: () => {
       if (settled) return
@@ -37,6 +34,5 @@ export function scheduleUndoable(job: Undoable, ms = 6000): UndoHandle {
 }
 
 export function flushAll(): void {
-  for (const discard of [...pending]) discard()
-  pending.clear()
+  for (const run of [...pending]) run()
 }

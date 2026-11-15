@@ -8,7 +8,10 @@ export function showUndoNotice(message: string, job: Undoable): void {
   const id = `undo-${Date.now()}-${Math.random().toString(36).slice(2)}`
   const handle = scheduleUndoable(
     {
-      run: job.run,
+      run: () => {
+        notifications.hide(id)
+        job.run()
+      },
       onUndo: () => {
         notifications.hide(id)
         job.onUndo()

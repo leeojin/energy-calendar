@@ -1,8 +1,13 @@
 import { ApiError } from './port.ts'
 import type { ErrorCode } from './types.ts'
 
-export async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
-  const init: RequestInit = { method, credentials: 'same-origin' }
+export async function request<T>(
+  method: string,
+  path: string,
+  body?: unknown,
+  options?: Pick<RequestInit, 'keepalive'>,
+): Promise<T> {
+  const init: RequestInit = { method, credentials: 'same-origin', ...options }
   if (body !== undefined) {
     init.headers = { 'Content-Type': 'application/json' }
     init.body = JSON.stringify(body)

@@ -20,6 +20,10 @@ function Placeholder({ name }: { name: string }): ReactNode {
 export default function App() {
   const { pathname } = useLocation()
   useEffect(() => () => flushAll(), [pathname])
+  useEffect(() => {
+    window.addEventListener('pagehide', flushAll)
+    return () => window.removeEventListener('pagehide', flushAll)
+  }, [])
   return (
     <Routes>
       <Route path="/" element={<CoverPage />} />

@@ -15,6 +15,27 @@ function mockFetch(res: Response | Error) {
 afterEach(() => vi.unstubAllGlobals())
 
 describe('httpApi', () => {
+  it.each([
+    ['할 일 삭제', () => httpApi.deleteTask(7), '/api/tasks/7', 'DELETE'],
+    ['응원 삭제', () => httpApi.deleteShareLinkComment(7), '/api/share-link-comments/7', 'DELETE'],
+    ['링크 닫기', () => httpApi.closeShareLink(7), '/api/share-links/7/close', 'POST'],
+    ['링크 삭제', () => httpApi.deleteShareLink(7), '/api/share-links/7', 'DELETE'],
+    [
+      '링크와 응원 삭제',
+      () => httpApi.deleteShareLinkWithComments(7),
+      '/api/share-links/7/with-comments',
+      'DELETE',
+    ],
+  ] as const)('%s 요청은 페이지가 종료돼도 전송을 유지한다', async (_label, call, path, method) => {
+    const f = mockFetch(new Response(null, { status: 204 }))
+    await call()
+    const [url, init] = f.mock.calls[0] as unknown as [string, RequestInit]
+    expect(url).toBe(path)
+    expect(init.method).toBe(method)
+    expect(init.keepalive).toBe(true)
+    expect(init.credentials).toBe('same-origin')
+  })
+
   it('moveTask는 POST /api/tasks/7/move에 JSON 본문과 same-origin으로 간다', async () => {
     const f = mockFetch(new Response('{"taskId":7}', { status: 200 }))
     await httpApi.moveTask(7, { toDate: '2026-11-03', toTimeSlot: 'MORNING' })
