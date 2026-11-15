@@ -1,0 +1,47 @@
+import type { ErrorCode } from './types.ts'
+
+const MESSAGES: Record<ErrorCode | 'NETWORK_ERROR' | 'DEMO_ONLY', string> = {
+  VALIDATION_FAILED: '적은 내용에 고칠 곳이 있어요.',
+  CAPTCHA_FAILED: '사람인지 확인하지 못했어요. 다시 해 봐요.',
+  DATE_IN_PAST: '지난날이에요. 오늘이나 그 뒤 날짜를 골라요.',
+  DATE_LOCKED: '지난 기록이라 고칠 수 없어요.',
+  FUTURE_TASK_NOT_COMPLETABLE: '아직 오지 않은 날이에요. 그날이 되면 [했어요]를 눌러요.',
+  TASK_DONE_NOT_MOVABLE: '이미 한 일이라 옮길 수 없어요. 옮기려면 [안 했어요]를 눌러요.',
+  ROUTINE_TASK_OTHER_WEEK: '매주 하는 일이라 같은 주 안에서만 옮길 수 있어요.',
+  ROUTINE_TASK_FIELD_NOT_EDITABLE: '이름은 [매주 하는 일 바꾸기]를 눌러 바꿔요.',
+  MOVE_SAME_PLACE: '이미 여기에 있어요. 다른 곳을 골라요.',
+  INVALID_DATE_RANGE: '끝나는 날이 시작하는 날보다 앞이에요. 다시 골라요.',
+  ROUTINE_ENDED: '이미 끝난 일이라 바꿀 수 없어요.',
+  SHARE_LINK_NOT_OPEN: '닫힌 링크라 바꿀 수 없어요.',
+  SHARE_LINK_STILL_OPEN: '링크를 닫으면 지울 수 있어요.',
+  INVALID_CREDENTIALS: '아이디나 비밀번호가 틀렸어요.',
+  AUTH_REQUIRED: '로그아웃됐어요. 다시 로그인해요.',
+  REAUTH_REQUIRED: '한 번 더 로그인해요.',
+  TASK_NOT_FOUND: '이 할 일은 이미 없어졌나 봐요.',
+  ROUTINE_NOT_FOUND: '이 일은 이미 없어졌나 봐요.',
+  SHARE_LINK_NOT_FOUND: '이 링크는 이미 없어졌나 봐요.',
+  COMMENT_NOT_FOUND: '이 응원은 이미 없어졌나 봐요.',
+  NOT_FOUND: '찾는 내용이 없어요.',
+  METHOD_NOT_ALLOWED: '지금은 할 수 없어요. 화면을 다시 열어 봐요.',
+  USERNAME_UNAVAILABLE: '이 아이디는 쓸 수 없어요. 다른 아이디를 적어요.',
+  CONCURRENT_UPDATE: '다른 곳에서 먼저 바뀌었어요. 다시 해 봐요.',
+  LOGIN_RATE_LIMITED: '여러 번 틀렸어요. 15분 뒤에 다시 해 봐요.',
+  SIGNUP_RATE_LIMITED: '오늘은 더 가입할 수 없어요. 내일 다시 해 봐요.',
+  TASK_DAY_LIMIT: '이날은 할 일이 30개로 꽉 찼어요. 다른 날에 놓아요.',
+  TASK_CREATE_DAILY_LIMIT: '오늘은 할 일을 많이 만들었어요. 내일 다시 만들어요.',
+  MOVE_DAILY_LIMIT: '오늘은 많이 옮겼어요. 내일 다시 옮겨요.',
+  ROUTINE_ACTIVE_LIMIT: '매주 하는 일이 50개로 꽉 찼어요. 안 하는 일을 먼저 그만해요.',
+  ROUTINE_TOTAL_LIMIT: '매주 하는 일은 200개까지만 만들 수 있어요.',
+  SHARE_LINK_OPEN_LIMIT: '열린 링크가 10개로 꽉 찼어요. 안 쓰는 링크를 먼저 닫아요.',
+  SHARE_LINK_TOTAL_LIMIT: '링크가 100개로 꽉 찼어요. 안 쓰는 링크를 지워요.',
+  SHARE_LINK_CREATE_DAILY_LIMIT: '오늘은 링크를 많이 만들었어요. 내일 다시 만들어요.',
+  COMMENT_RATE_LIMITED: '응원을 많이 붙였어요. 1분 뒤에 다시 붙여요.',
+  COMMENT_DAILY_LIMIT: '오늘은 이 링크에 응원이 꽉 찼어요. 내일 다시 붙여요.',
+  INTERNAL_ERROR: '잠깐 문제가 생겼어요. 다시 해 봐요.',
+  NETWORK_ERROR: '연결이 안 돼요. 잠시 뒤 다시 해 봐요.',
+  DEMO_ONLY: '가입하면 할 수 있어요.',
+}
+
+export function messageOf(code: string): string {
+  return Object.hasOwn(MESSAGES, code) ? MESSAGES[code as ErrorCode] : MESSAGES.INTERNAL_ERROR
+}

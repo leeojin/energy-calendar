@@ -1,0 +1,7 @@
+app:
+  cookie:
+    secure: false
+  jwt:
+    secret: dGVzdC1vbmx5LWp3dC1rZXktbm90LWEtc2VjcmV0LWVuZXJneWNhbC0wMDAwNDh4
+  turnstile:
+    secret-key: test

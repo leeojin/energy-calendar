@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: energy-calendar
+  datasource:
+    url: jdbc:mysql://${DB_HOST:mysql}:3306/${DB_NAME}?characterEncoding=UTF-8&connectionTimeZone=Asia/Seoul&forceConnectionTimeZoneToSession=true
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+
+server:
+  forward-headers-strategy: native
+  error:
+    include-stacktrace: never
+    include-message: never
+    whitelabel:
+      enabled: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    ttl-hours: 12
+  cookie:
+    secure: true
+  turnstile:
+    secret-key: ${TURNSTILE_SECRET_KEY}
+    verify-url: https://challenges.cloudflare.com/turnstile/v0/siteverify
+  limits:
+    login-failure-max: 5
+    login-lock-minutes: 15
+    signup-per-ip-per-day: 20
+    comment-per-ip-per-minute: 3
+    comment-per-link-per-day: 100
+    task-create-per-day: 100
+    task-per-date: 30
+    move-per-day: 200
+    routine-active-max: 50
+    routine-total-max: 200
+    share-link-open-max: 10
+    share-link-total-max: 100
+    share-link-create-per-day: 20

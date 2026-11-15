@@ -1,0 +1,42 @@
+:root {
+  --ink: #222;
+  --sub: #555;
+  --muted: #888;
+  --faint: #b5b5b5;
+  --line: #333;
+  --line-soft: #c9c9c6;
+  --hair: #e5e5e2;
+  --bg: #f4f4f2;
+  --card: #fff;
+  --soft: #fafaf8;
+  --blk: #ffe58a;
+  --blk-ink: #4a3a00;
+  --blk-soft: #fff7d1;
+  --plan: #b8961e;
+  --rule: #e2e2de;
+  --margin: #e8c9a8;
+  --over: #b45309;
+  --over-bg: #ffc58a;
+  --over-ink: #6b2e00;
+  --h-lg: 44px;
+  --h: 36px;
+  --h-sm: 30px;
+  --r-cell: 4px;
+  --r-box: 8px;
+  --r-card: 14px;
+  --bw: 1.3px;
+  --bw-strong: 1.5px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'SUIT Variable', system-ui, sans-serif;
+  font-feature-settings: 'tnum';
+  -webkit-font-smoothing: antialiased;
+}
